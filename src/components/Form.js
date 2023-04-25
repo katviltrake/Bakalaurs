@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 function Form(props) {
+  const [task, setTask] = useState("");
+
+  const addTask = () => {
+    props.setTasks([
+      ...props.tasks,
+      {
+        id: props.tasks.length > 0 ? props.tasks.slice(-1)[0].id + 1 : 0,
+        name: task,
+        completed: false,
+      },
+    ]);
+  };
+
   return (
-    <form>
+    <div className="form">
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
-          What needs to be done?
+          Kas darāms?
         </label>
       </h2>
       <input
@@ -14,11 +27,13 @@ function Form(props) {
         className="input input__lg"
         name="text"
         autoComplete="off"
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
       />
-      <button type="submit" className="btn btn__primary btn__lg">
-        Add
+      <button className="btn btn__primary btn__lg" onClick={(e) => addTask(e)}>
+        Pievienot
       </button>
-    </form>
+    </div>
   );
 }
 
