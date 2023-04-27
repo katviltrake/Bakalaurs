@@ -1,20 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { editTask, deleteTask } from "../app/todoSlice";
 
 export default function Todo(props) {
+  const dispatch = useDispatch();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(props.name);
 
-  const deleteTask = () => {
-    props.setTasks(props.tasks.filter((task) => task.id !== props.id));
-  };
-
-  const editTask = () => {
+  const edit = () => {
     setEditing(false);
     if (props.name !== name) {
-      const newTask = props.tasks.map((task) =>
-        task.id === props.id ? { ...task, name: name } : task
-      );
-      props.setTasks(newTask);
+      dispatch(editTask({ id: props.id, name: name }));
     }
   };
 
@@ -39,7 +35,7 @@ export default function Todo(props) {
       )}
       <div className="btn-group">
         {editing ? (
-          <button onClick={() => editTask()} type="button" className="btn">
+          <button onClick={() => edit()} type="button" className="btn">
             Pabeigt rediģēšanu{" "}
             <span className="visually-hidden">{props.name}</span>
           </button>
@@ -53,7 +49,7 @@ export default function Todo(props) {
           </button>
         )}
         <button
-          onClick={() => deleteTask(props.id)}
+          onClick={() => dispatch(deleteTask(props.id))}
           type="button"
           className="btn btn__danger"
         >

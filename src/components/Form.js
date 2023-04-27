@@ -1,18 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addTask } from "../app/todoSlice";
 
 function Form(props) {
+  const dispatch = useDispatch();
   const [task, setTask] = useState("");
-
-  const addTask = () => {
-    props.setTasks([
-      ...props.tasks,
-      {
-        id: props.tasks.length > 0 ? props.tasks.slice(-1)[0].id + 1 : 0,
-        name: task,
-        completed: false,
-      },
-    ]);
-  };
 
   return (
     <div className="form">
@@ -30,7 +22,10 @@ function Form(props) {
         value={task}
         onChange={(e) => setTask(e.target.value)}
       />
-      <button className="btn btn__primary btn__lg" onClick={(e) => addTask(e)}>
+      <button
+        className="btn btn__primary btn__lg"
+        onClick={() => dispatch(addTask(task))}
+      >
         Pievienot
       </button>
     </div>
