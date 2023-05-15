@@ -53,7 +53,7 @@ export default function Todo(props) {
           </button>
         )}
         <button
-          onClick={() => deleteTask(props.id)}
+          onClick={() => deleteTask()}
           type="button"
           className="btn btn__danger"
         >

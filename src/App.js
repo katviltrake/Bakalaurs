@@ -6,7 +6,7 @@ function App(props) {
   const [tasks, setTasks] = useState([
     { id: 1, name: "Bakalaurs", completed: false },
   ]);
-
+  console.log(tasks);
   return (
     <div className="todoapp stack-large">
       <h1>Uzdevumu grāmata</h1>
