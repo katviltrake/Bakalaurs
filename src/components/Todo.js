@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react";
 
-export default function Todo(props) {
+function Todo(props) {
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(props.name);
 
@@ -63,3 +64,4 @@ export default function Todo(props) {
     </li>
   );
 }
+export default observer(Todo);

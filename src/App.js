@@ -3,9 +3,10 @@ import Form from "./components/Form";
 import Todo from "./components/Todo";
 
 function App(props) {
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Bakalaurs", completed: false },
-  ]);
+  const tasks = useStore();
+  // const [tasks, setTasks] = useState([
+  //   { id: 1, name: "Bakalaurs", completed: false },
+  // ]);
 
   return (
     <div className="todoapp stack-large">
@@ -21,7 +22,7 @@ function App(props) {
         aria-labelledby="list-heading"
       >
         {tasks &&
-          tasks.map((task) => (
+          tasks.openTodos.map((task) => (
             <Todo
               id={task.id}
               name={task.name}
