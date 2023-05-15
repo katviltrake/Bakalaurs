@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { GlobalStateContext } from "../App";
+import { useActor } from "@xstate/react";
 
 function Form(props) {
+  const globalServices = useContext(GlobalStateContext);
   const [task, setTask] = useState("");
+  const [state] = useActor(globalServices.authService);
 
   const addTask = () => {
     props.setTasks([
