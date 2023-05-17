@@ -1,37 +1,9 @@
-class TodoStore {
-  todos = [];
+import { makeAutoObservable } from "mobx";
 
-  get completedTodosCount() {
-    return this.todos.filter((todo) => todo.completed === true).length;
-  }
+const todoStore = () => {
+  return makeAutoObservable({
+    tasks: [{ id: 1, name: "Bakalaurs", completed: false }],
+  });
+};
 
-  report() {
-    if (this.todos.length === 0) return "<none>";
-    const nextTodo = this.todos.find((todo) => todo.completed === false);
-    return (
-      `Next todo: "${nextTodo ? nextTodo.task : "<none>"}". ` +
-      `Progress: ${this.completedTodosCount}/${this.todos.length}`
-    );
-  }
-
-  addTodo(task) {
-    this.todos.push({
-      task: task,
-      completed: false,
-    });
-  }
-  deleteTodo(task) {
-    this.todos.push({
-      task: task,
-      completed: false,
-    });
-  }
-  editTodo(task) {
-    this.todos.push({
-      task: task,
-      completed: false,
-    });
-  }
-}
-
-export default todoStore = new TodoStore();
+export default todoStore;

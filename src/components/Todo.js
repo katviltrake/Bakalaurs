@@ -1,23 +1,26 @@
 import React, { useState } from "react";
-import { observer } from "mobx-react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../stores/store";
+import { action } from "mobx";
 
 function Todo(props) {
+  const { todoStore } = useStore();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(props.name);
 
-  const deleteTask = () => {
-    props.setTasks(props.tasks.filter((task) => task.id !== props.id));
-  };
+  const deleteTask = action(() => {
+    todoStore.tasks = todoStore.tasks.filter((task) => task.id !== props.id);
+  });
 
-  const editTask = () => {
+  const editTask = action(() => {
     setEditing(false);
     if (props.name !== name) {
-      const newTask = props.tasks.map((task) =>
+      const newTasks = todoStore.tasks.map((task) =>
         task.id === props.id ? { ...task, name: name } : task
       );
-      props.setTasks(newTask);
+      todoStore.tasks = newTasks;
     }
-  };
+  });
 
   return (
     <li className="todo stack-small">

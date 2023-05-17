@@ -1,18 +1,19 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../stores/store";
+import { action } from "mobx";
 
 function Form(props) {
+  const { todoStore } = useStore();
   const [task, setTask] = useState("");
 
-  const addTask = () => {
-    props.setTasks([
-      ...props.tasks,
-      {
-        id: props.tasks.length > 0 ? props.tasks.slice(-1)[0].id + 1 : 0,
-        name: task,
-        completed: false,
-      },
-    ]);
-  };
+  const addTask = action(() => {
+    todoStore.tasks.push({
+      id: todoStore.tasks.length > 0 ? todoStore.tasks.slice(-1)[0].id + 1 : 0,
+      name: task,
+      completed: false,
+    });
+  });
 
   return (
     <div className="form">
@@ -37,4 +38,4 @@ function Form(props) {
   );
 }
 
-export default Form;
+export default observer(Form);
