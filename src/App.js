@@ -1,50 +1,40 @@
 import React, { useState, createContext } from "react";
 import Form from "./components/Form";
 import Todo from "./components/Todo";
-import { useInterpret, useMachine } from "@xstate/react";
-import { createTodoMachine } from "./machine";
-export const GlobalStateContext = createContext({});
+import { todosMachine } from "./machines/todosMachine";
+import { createActorContext, useMachine } from "@xstate/react";
+export const SomeMachineContext = createActorContext(todosMachine);
 
 function App(props) {
-  const service = useInterpret(createTodoMachine);
-  const [tasks, setTasks] = useState([
-    { id: 1, name: "Bakalaurs", completed: false },
-  ]);
-  console.log(tasks);
-  const [state, send] = useMachine(createTodoMachine, {
-    actions: {
-      goToOtherPage: () => {},
-    },
-  });
+  const [state, send] = useMachine(todosMachine);
 
   return (
-    <GlobalStateContext.Provider value={{ service }}>
+    <SomeMachineContext.Provider>
       <div className="todoapp stack-large">
         <h1>Uzdevumu grāmata</h1>
-        <Form setTasks={setTasks} tasks={tasks} />
+        <Form tasks={state.context.todos} />
         <h2 id="list-heading">
-          {tasks.length}{" "}
-          {tasks.length === 1 ? "uzdevums atlicis" : "uzdevumi atlikuši"}
+          {state.context.todos.length}{" "}
+          {state.context.todos.length === 1
+            ? "uzdevums atlicis"
+            : "uzdevumi atlikuši"}
         </h2>
         <ul
           role="list"
           className="todo-list stack-large stack-exception"
           aria-labelledby="list-heading"
         >
-          {tasks &&
-            tasks.map((task) => (
+          {state?.context?.todos &&
+            state?.context?.todos.map((task) => (
               <Todo
-                id={task.id}
-                name={task.name}
-                completed={task.completed}
                 key={task.id}
-                setTasks={setTasks}
-                tasks={tasks}
+                tasks={state.context.todos}
+                todoRef={task.ref}
               />
             ))}
         </ul>
       </div>
-    </GlobalStateContext.Provider>
+    </SomeMachineContext.Provider>
   );
 }
 

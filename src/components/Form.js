@@ -1,21 +1,12 @@
-import React, { useState, useContext } from "react";
-import { GlobalStateContext } from "../App";
-import { useActor } from "@xstate/react";
+import React, { useState } from "react";
+import { SomeMachineContext } from "../App";
 
 function Form(props) {
-  const globalServices = useContext(GlobalStateContext);
+  const [state, send] = SomeMachineContext.useActor();
   const [task, setTask] = useState("");
-  const [state] = useActor(globalServices.authService);
 
-  const addTask = () => {
-    props.setTasks([
-      ...props.tasks,
-      {
-        id: props.tasks.length > 0 ? props.tasks.slice(-1)[0].id + 1 : 0,
-        name: task,
-        completed: false,
-      },
-    ]);
+  const addTask = (e) => {
+    setTask(e.target.value);
   };
 
   return (
@@ -32,9 +23,12 @@ function Form(props) {
         name="text"
         autoComplete="off"
         value={task}
-        onChange={(e) => setTask(e.target.value)}
+        onChange={(e) => addTask(e)}
       />
-      <button className="btn btn__primary btn__lg" onClick={(e) => addTask(e)}>
+      <button
+        className="btn btn__primary btn__lg"
+        onClick={() => send({ type: "NEWTODO.COMMIT", value: task })}
+      >
         Pievienot
       </button>
     </div>
