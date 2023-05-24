@@ -25,10 +25,11 @@ export const createTodoMachine = ({ id, name, completed }) =>
       idle: {
         on: {
           TOGGLE_COMPLETE: {
-            actions: [
-              assign({ completed: (context) => !context.completed }),
-              "commit",
-            ],
+            target: "idle",
+            actions: sendParent((context) => ({
+              type: "TODO.MARK",
+              todo: context,
+            })),
           },
           EDIT: {
             target: "editing",

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { SomeMachineContext } from "../App";
+import { useActor } from "@xstate/react";
 
 function Form(props) {
-  const [state, send] = SomeMachineContext.useActor();
+  const [state, send] = useActor(props.service);
   const [task, setTask] = useState("");
 
   const addTask = (e) => {

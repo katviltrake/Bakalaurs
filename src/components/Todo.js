@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useActor } from "@xstate/react";
 
 export default function Todo(props) {
   const [state, send] = useActor(props.todoRef);
-  const { id, title, completed } = state.context;
-  const [name, setName] = useState(props.name);
+  const [name, setName] = useState(props.todo.name);
   const deleteTask = () => {
     send("DELETE");
   };
@@ -18,18 +17,19 @@ export default function Todo(props) {
         <li className="todo stack-small">
           <div className="c-cb">
             <input
-              id={state.context.id}
+              id={props.todo.id}
               type="checkbox"
-              defaultChecked={state.context.completed}
+              checked={props.todo.completed}
+              onChange={(e) => send("TOGGLE_COMPLETE")}
             />
-            <label className="todo-label" htmlFor={state.context.id}>
-              {state.context.name}
+            <label className="todo-label" htmlFor={props.todo.id}>
+              {props.todo.name}
             </label>
           </div>
           {state?.value === "editing" && (
             <input
               type="text"
-              id={state.context.id}
+              id={props.todo.id}
               className="input input__md"
               name="text"
               autoComplete="off"
@@ -41,7 +41,7 @@ export default function Todo(props) {
             {state?.value === "editing" ? (
               <button onClick={() => editTask()} type="button" className="btn">
                 Pabeigt rediģēšanu{" "}
-                <span className="visually-hidden">{state.context.name}</span>
+                <span className="visually-hidden">{props.todo.name}</span>
               </button>
             ) : (
               <button
@@ -50,7 +50,7 @@ export default function Todo(props) {
                 className="btn"
               >
                 Rediģēt{" "}
-                <span className="visually-hidden">{state.context.name}</span>
+                <span className="visually-hidden">{props.todo.name}</span>
               </button>
             )}
             <button
@@ -58,8 +58,7 @@ export default function Todo(props) {
               type="button"
               className="btn btn__danger"
             >
-              Izdzēst{" "}
-              <span className="visually-hidden">{state.context.name}</span>
+              Izdzēst <span className="visually-hidden">{props.todo.name}</span>
             </button>
           </div>
         </li>
