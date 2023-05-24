@@ -22,10 +22,22 @@ function Todo(props) {
     }
   });
 
+  const changeCompleted = () => {
+    const newTask = todoStore.tasks.map((task) =>
+      task.id === props.id ? { ...task, completed: !task.completed } : task
+    );
+    todoStore.tasks = newTask;
+  };
+
   return (
     <li className="todo stack-small">
       <div className="c-cb">
-        <input id={props.id} type="checkbox" defaultChecked={props.completed} />
+        <input
+          id={props.id}
+          type="checkbox"
+          checked={props.completed}
+          onChange={() => changeCompleted()}
+        />
         <label className="todo-label" htmlFor={props.id}>
           {props.name}
         </label>

@@ -4,7 +4,7 @@ import Todo from "./components/Todo";
 import { useStore } from "./stores/store";
 import { observer } from "mobx-react-lite";
 
-function App(props) {
+function App() {
   const { todoStore } = useStore();
 
   return (
