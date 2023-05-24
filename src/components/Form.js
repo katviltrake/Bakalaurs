@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import uuid from "uuid-v4";
 
 function Form(props) {
   const [task, setTask] = useState("");
@@ -7,7 +8,7 @@ function Form(props) {
     props.setTasks([
       ...props.tasks,
       {
-        id: props.tasks.length > 0 ? props.tasks.slice(-1)[0].id + 1 : 0,
+        id: uuid(),
         name: task,
         completed: false,
       },
