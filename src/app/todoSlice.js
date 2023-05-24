@@ -28,9 +28,17 @@ export const todoSlice = createSlice({
         },
       ];
     },
+    changeCompleted: (state, action) => {
+      state.tasks = state.tasks.map((task) =>
+        task.id === action.payload.id
+          ? { ...task, completed: !task.completed }
+          : task
+      );
+    },
   },
 });
 
-export const { deleteTask, editTask, addTask } = todoSlice.actions;
+export const { deleteTask, editTask, addTask, changeCompleted } =
+  todoSlice.actions;
 
 export default todoSlice.reducer;

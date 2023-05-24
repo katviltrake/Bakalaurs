@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editTask, deleteTask } from "../app/todoSlice";
+import { editTask, deleteTask, changeCompleted } from "../app/todoSlice";
 
 export default function Todo(props) {
   const dispatch = useDispatch();
@@ -17,7 +17,12 @@ export default function Todo(props) {
   return (
     <li className="todo stack-small">
       <div className="c-cb">
-        <input id={props.id} type="checkbox" defaultChecked={props.completed} />
+        <input
+          id={props.id}
+          type="checkbox"
+          checked={props.completed}
+          onChange={() => dispatch(changeCompleted({ id: props.id }))}
+        />
         <label className="todo-label" htmlFor={props.id}>
           {props.name}
         </label>
