@@ -3,7 +3,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../stores/store";
 import { action } from "mobx";
 
-function Form(props) {
+function Form() {
   const { todoStore } = useStore();
   const [task, setTask] = useState("");
 
