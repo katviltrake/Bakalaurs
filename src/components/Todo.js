@@ -5,23 +5,32 @@ export default function Todo(props) {
   const [name, setName] = useState(props.name);
 
   const deleteTask = () => {
+    let start = Date.now();
     props.setTasks(props.tasks.filter((task) => task.id !== props.id));
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   const editTask = () => {
     setEditing(false);
     if (props.name !== name) {
+      let start = Date.now();
       const newTask = props.tasks.map((task) =>
         task.id === props.id ? { ...task, name: name } : task
       );
       props.setTasks(newTask);
+      let timeTaken = Date.now() - start;
+      console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
     }
   };
   const changeCompleted = () => {
+    let start = Date.now();
     const newTask = props.tasks.map((task) =>
       task.id === props.id ? { ...task, completed: !task.completed } : task
     );
     props.setTasks(newTask);
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   return (

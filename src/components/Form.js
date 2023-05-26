@@ -5,6 +5,7 @@ function Form(props) {
   const [task, setTask] = useState("");
 
   const addTask = () => {
+    let start = Date.now();
     props.setTasks([
       ...props.tasks,
       {
@@ -13,6 +14,8 @@ function Form(props) {
         completed: false,
       },
     ]);
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   return (
