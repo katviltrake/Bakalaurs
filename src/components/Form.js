@@ -6,6 +6,13 @@ function Form(props) {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
 
+  const addingTask = () => {
+    let start = Date.now();
+    dispatch(addTask(task));
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+  };
+
   return (
     <div className="form">
       <h2 className="label-wrapper">
@@ -22,10 +29,7 @@ function Form(props) {
         value={task}
         onChange={(e) => setTask(e.target.value)}
       />
-      <button
-        className="btn btn__primary btn__lg"
-        onClick={() => dispatch(addTask(task))}
-      >
+      <button className="btn btn__primary btn__lg" onClick={() => addingTask()}>
         Pievienot
       </button>
     </div>

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import uuid from "uuid-v4";
 
 const initialState = {
   tasks: [{ id: 1, name: "Bakalaurs", completed: false }],
@@ -22,7 +23,7 @@ export const todoSlice = createSlice({
       state.tasks = [
         ...state.tasks,
         {
-          id: state.tasks.length > 0 ? state.tasks.slice(-1)[0].id + 1 : 0,
+          id: uuid(),
           name: action.payload,
           completed: false,
         },
