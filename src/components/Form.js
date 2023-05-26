@@ -8,11 +8,14 @@ function Form() {
   const [task, setTask] = useState("");
 
   const addTask = action(() => {
+    let start = Date.now();
     todoStore.tasks.push({
       id: todoStore.tasks.length > 0 ? todoStore.tasks.slice(-1)[0].id + 1 : 0,
       name: task,
       completed: false,
     });
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   });
 
   return (

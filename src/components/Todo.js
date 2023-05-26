@@ -9,25 +9,34 @@ function Todo(props) {
   const [name, setName] = useState(props.name);
 
   const deleteTask = action(() => {
+    let start = Date.now();
     todoStore.tasks = todoStore.tasks.filter((task) => task.id !== props.id);
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   });
 
   const editTask = action(() => {
     setEditing(false);
     if (props.name !== name) {
+      let start = Date.now();
       const newTasks = todoStore.tasks.map((task) =>
         task.id === props.id ? { ...task, name: name } : task
       );
       todoStore.tasks = newTasks;
+      let timeTaken = Date.now() - start;
+      console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
     }
   });
 
-  const changeCompleted = () => {
+  const changeCompleted = action(() => {
+    let start = Date.now();
     const newTask = todoStore.tasks.map((task) =>
       task.id === props.id ? { ...task, completed: !task.completed } : task
     );
     todoStore.tasks = newTask;
-  };
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+  });
 
   return (
     <li className="todo stack-small">
