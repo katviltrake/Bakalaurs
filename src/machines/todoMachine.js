@@ -1,4 +1,3 @@
-//  initial: [{ id: 1, name: "Bakalaurs", completed: false }],
 import { createMachine, assign, sendParent } from "xstate";
 
 export const createTodoMachine = ({ id, name, completed }) =>

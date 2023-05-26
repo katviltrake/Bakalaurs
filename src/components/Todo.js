@@ -20,7 +20,7 @@ export default function Todo(props) {
               id={props.todo.id}
               type="checkbox"
               checked={props.todo.completed}
-              onChange={(e) => send("TOGGLE_COMPLETE")}
+              onChange={() => send("TOGGLE_COMPLETE")}
             />
             <label className="todo-label" htmlFor={props.todo.id}>
               {props.todo.name}
