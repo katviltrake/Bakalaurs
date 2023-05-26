@@ -9,6 +9,13 @@ function Form(props) {
     setTask(e.target.value);
   };
 
+  const adding = () => {
+    let start = Date.now();
+    send({ type: "NEWTODO.COMMIT", value: task });
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+  };
+
   return (
     <div className="form">
       <h2 className="label-wrapper">
@@ -25,10 +32,7 @@ function Form(props) {
         value={task}
         onChange={(e) => addTask(e)}
       />
-      <button
-        className="btn btn__primary btn__lg"
-        onClick={() => send({ type: "NEWTODO.COMMIT", value: task })}
-      >
+      <button className="btn btn__primary btn__lg" onClick={() => adding()}>
         Pievienot
       </button>
     </div>

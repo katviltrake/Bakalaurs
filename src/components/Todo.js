@@ -5,12 +5,24 @@ export default function Todo(props) {
   const [state, send] = useActor(props.todoRef);
   const [name, setName] = useState(props.todo.name);
   const deleteTask = () => {
+    let start = Date.now();
     send("DELETE");
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
   const editTask = () => {
+    let start = Date.now();
     send({ type: "COMMIT", value: name });
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
+  const toggle = () => {
+    let start = Date.now();
+    send("TOGGLE_COMPLETE");
+    let timeTaken = Date.now() - start;
+    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+  };
   return (
     <>
       {state?.context && (
@@ -20,7 +32,7 @@ export default function Todo(props) {
               id={props.todo.id}
               type="checkbox"
               checked={props.todo.completed}
-              onChange={() => send("TOGGLE_COMPLETE")}
+              onChange={() => toggle()}
             />
             <label className="todo-label" htmlFor={props.todo.id}>
               {props.todo.name}
