@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../stores/store";
 import { action } from "mobx";
+import uuid from "uuid-v4";
 
 function Form() {
   const { todoStore } = useStore();
@@ -10,7 +11,7 @@ function Form() {
   const addTask = action(() => {
     let start = Date.now();
     todoStore.tasks.push({
-      id: todoStore.tasks.length > 0 ? todoStore.tasks.slice(-1)[0].id + 1 : 0,
+      id: uuid(),
       name: task,
       completed: false,
     });
