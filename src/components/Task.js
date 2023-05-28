@@ -5,23 +5,14 @@ export default function Task(props) {
   const [state, send] = useActor(props.taskRef);
   const [name, setName] = useState(props.task.name);
   const deleteTask = () => {
-    let start = Date.now();
     send("DELETE");
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
   const editTask = () => {
-    let start = Date.now();
     send({ type: "COMMIT", value: name });
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   const toggle = () => {
-    let start = Date.now();
     send("TOGGLE_COMPLETE");
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   return (
