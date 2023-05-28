@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../app/todoSlice";
+import { addTask } from "../app/taskSlice";
 
-function Form(props) {
+function Form() {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
 
   const addingTask = () => {
-    let start = Date.now();
     dispatch(addTask(task));
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   return (

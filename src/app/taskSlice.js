@@ -5,8 +5,8 @@ const initialState = {
   tasks: [{ id: 1, name: "Bakalaurs", completed: false }],
 };
 
-export const todoSlice = createSlice({
-  name: "todo",
+export const taskSlice = createSlice({
+  name: "tasks",
   initialState,
   reducers: {
     deleteTask: (state, action) => {
@@ -40,6 +40,6 @@ export const todoSlice = createSlice({
 });
 
 export const { deleteTask, editTask, addTask, changeCompleted } =
-  todoSlice.actions;
+  taskSlice.actions;
 
-export default todoSlice.reducer;
+export default taskSlice.reducer;

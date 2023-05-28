@@ -4,7 +4,7 @@ import Todo from "./components/Todo";
 import { useSelector } from "react-redux";
 
 function App(props) {
-  const tasks = useSelector((state) => state.todo.tasks || []);
+  const tasks = useSelector((state) => state.tasks.tasks || []);
 
   return (
     <div className="todoapp stack-large">

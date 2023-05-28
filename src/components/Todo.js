@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { editTask, deleteTask, changeCompleted } from "../app/todoSlice";
+import { editTask, deleteTask, changeCompleted } from "../app/taskSlice";
 
 export default function Todo(props) {
   const dispatch = useDispatch();
@@ -10,25 +10,16 @@ export default function Todo(props) {
   const edit = () => {
     setEditing(false);
     if (props.name !== name) {
-      let start = Date.now();
       dispatch(editTask({ id: props.id, name: name }));
-      let timeTaken = Date.now() - start;
-      console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
     }
   };
 
   const toggle = () => {
-    let start = Date.now();
     dispatch(changeCompleted({ id: props.id }));
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
 
   const deleting = () => {
-    let start = Date.now();
     dispatch(deleteTask(props.id));
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
   return (
     <li className="todo stack-small">
