@@ -5,15 +5,15 @@ import { useStore } from "./stores/store";
 import { observer } from "mobx-react-lite";
 
 function App() {
-  const { todoStore } = useStore();
+  const { taskStore } = useStore();
 
   return (
     <div className="todoapp stack-large">
       <h1>Uzdevumu grāmata</h1>
-      <Form tasks={todoStore.tasks} />
+      <Form tasks={taskStore.tasks} />
       <h2 id="list-heading">
-        {todoStore.tasks.length}{" "}
-        {todoStore.tasks.length === 1
+        {taskStore.tasks.length}{" "}
+        {taskStore.tasks.length === 1
           ? "uzdevums atlicis"
           : "uzdevumi atlikuši"}
       </h2>
@@ -22,14 +22,14 @@ function App() {
         className="todo-list stack-large stack-exception"
         aria-labelledby="list-heading"
       >
-        {todoStore.tasks &&
-          todoStore.tasks.map((task) => (
+        {taskStore.tasks &&
+          taskStore.tasks.map((task) => (
             <Todo
               id={task.id}
               name={task.name}
               completed={task.completed}
               key={task.id}
-              tasks={todoStore.tasks}
+              tasks={taskStore.tasks}
             />
           ))}
       </ul>

@@ -4,38 +4,29 @@ import { useStore } from "../stores/store";
 import { action } from "mobx";
 
 function Todo(props) {
-  const { todoStore } = useStore();
+  const { taskStore } = useStore();
   const [editing, setEditing] = useState(false);
   const [name, setName] = useState(props.name);
 
   const deleteTask = action(() => {
-    let start = Date.now();
-    todoStore.tasks = todoStore.tasks.filter((task) => task.id !== props.id);
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+    taskStore.tasks = taskStore.tasks.filter((task) => task.id !== props.id);
   });
 
   const editTask = action(() => {
     setEditing(false);
     if (props.name !== name) {
-      let start = Date.now();
-      const newTasks = todoStore.tasks.map((task) =>
+      const newTasks = taskStore.tasks.map((task) =>
         task.id === props.id ? { ...task, name: name } : task
       );
-      todoStore.tasks = newTasks;
-      let timeTaken = Date.now() - start;
-      console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+      taskStore.tasks = newTasks;
     }
   });
 
   const changeCompleted = action(() => {
-    let start = Date.now();
-    const newTask = todoStore.tasks.map((task) =>
+    const newTask = taskStore.tasks.map((task) =>
       task.id === props.id ? { ...task, completed: !task.completed } : task
     );
-    todoStore.tasks = newTask;
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
+    taskStore.tasks = newTask;
   });
 
   return (

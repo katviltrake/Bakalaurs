@@ -5,18 +5,15 @@ import { action } from "mobx";
 import uuid from "uuid-v4";
 
 function Form() {
-  const { todoStore } = useStore();
+  const { taskStore } = useStore();
   const [task, setTask] = useState("");
 
   const addTask = action(() => {
-    let start = Date.now();
-    todoStore.tasks.push({
+    taskStore.tasks.push({
       id: uuid(),
       name: task,
       completed: false,
     });
-    let timeTaken = Date.now() - start;
-    console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   });
 
   return (
@@ -35,7 +32,7 @@ function Form() {
         value={task}
         onChange={(e) => setTask(e.target.value)}
       />
-      <button className="btn btn__primary btn__lg" onClick={(e) => addTask(e)}>
+      <button className="btn btn__primary btn__lg" onClick={(e) => addTask()}>
         Pievienot
       </button>
     </div>
