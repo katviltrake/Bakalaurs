@@ -11,7 +11,7 @@ function Form(props) {
 
   const adding = () => {
     let start = Date.now();
-    send({ type: "NEWTODO.COMMIT", value: task });
+    send({ type: "NEWTASK.COMMIT", value: task });
     let timeTaken = Date.now() - start;
     console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
