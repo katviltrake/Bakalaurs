@@ -1,8 +1,8 @@
-import { createMachine, assign, sendParent } from "xstate";
+import { createMachine, sendParent } from "xstate";
 
 export const createTaskMachine = ({ id, name, completed }) =>
   createMachine({
-    /** @xstate-layout N4IgpgJg5mDOIC5QBcD2FUGIAqB5A4vgDICiA+gMK4CyACqdiQNoAMAuoqAA6qwCWyPqgB2nEAA9EAFikB2AHSyATADYArAGYAHCyUsAjFoCcUgDQgAntKNL5KlkY1S1y4-qMqAvp-NoMmEgARAElsVg4kEB5+QRExSQR7BX0lfRYWFSVZLTV9KQ1zKwQnRXzZexzZbLUjWW9fdCxAkgZmdjFogSFRSITXeRZcjJYc3K0tJULEEtkynXS9dxVy+pA-VHk+CAAbMBwCYnIqOlbwjt4uuN7EPRV5PLUJibkWWRYCyxutfXlHJSUjOkdEopN9Vut5JAusIoJhjtRQmdIp1Yj1QAkNDZfvplrINPoNMstMsPkVbG41HoTCotNpHFpvD4QMJ0HAxOtzjFuvFEABaUFTBC8rRSeSPcoaJSYlQ0uRScGNTY7MCcy5oiSIFiC1RaRRqdLpIxqZYpEwKjCQiDQqCq1E8hCg3UZEFGSpqKQgsyfBD6ZTyOTqQk6fQEmrmjYQMC7ZCQW3c64IcYKHKOFwpd4y-SC322ANqFypZRSUOMzxAA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QBcCGsDWBiAogEQEkAVAbQAYBdRUABwHtYBLZRugO2pAA9EAmADn4A6MgE4AzAEYALAHZR0svzkA2aQBoQAT0SSJQ8QICsk3uPlHRR-rwC+tzWkxY8OADI4iOclSQh6TCzsnDwI5tJCKvxqRiqS8oLi0iqaOgh64gYC0hImsmTSvLKy9o7oGEKMEAA2YFhEAPIA4k0eAPoAwg0AsgAKHl4+nAHMrBx+ofJC0tJGsrxyBbJGOUapuopCRry8ktHKkiqi-KUgThWQo2xQWF3d3cRDfiNB46ChpryR4tZmhzKWDTaPiyYSzFQqXhRfiiUxGH72BwgNh0CBwTjnYYMUbBCaIAC00mEZn4khMAgkZEk4nE6wQ8JE0nEVP2x0URWkp3OlRqYCxgTGIUQZDpCzIXPKQkuLGu-Jxb24wrp4WmMN+ZDishUWolmCEaNqyEgcteQoQ+LIQhJZNMMOZ1IEdKZmX4Rm2RjE8yOC0RtiAA */
     id: "task",
     initial: "idle",
     context: {
@@ -11,12 +11,6 @@ export const createTaskMachine = ({ id, name, completed }) =>
       completed: completed,
     },
     on: {
-      TOGGLE_COMPLETE: {
-        actions: [
-          assign({ completed: true }),
-          sendParent((context) => ({ type: "TASK.COMMIT", task: context })),
-        ],
-      },
       EDIT: "editing",
       DELETE: "deleted",
     },

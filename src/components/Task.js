@@ -23,6 +23,7 @@ export default function Task(props) {
     let timeTaken = Date.now() - start;
     console.log("Patērētais laiks funkcijai: " + timeTaken + " milisekundes");
   };
+
   return (
     <>
       {state?.context && (
